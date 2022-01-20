@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Want to be powerful?</title>
+    
+    <link rel="canonical" href="http://getresponsecode.com/">
+    <meta name="description" content="A simple site to give you a response for your code">
+    <meta property="og:title" content="Want to be powerful?">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="http://getresponsecode.com/">
+    <meta property="og:description" content="A simple site to give you a response for your code">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="stylesheet" href="/style.css" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P646YKY96C"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P646YKY96C');
+    </script>
+    <script>
+        const multiplier = 0x5DEECE66Dn;
+        const addend = 0xBn;
+        
+        class Random {
+            constructor(seed) {
+                this.setSeed(seed);
+            }
+            
+            setSeed(seed) {
+                this.seed = BigInt.asUintN(48, BigInt(seed) ^ multiplier);
+            }
+        
+            next(bits) {
+                const oldseed = this.seed;
+                const nextseed = BigInt.asUintN(48, oldseed * multiplier + addend);
+                this.seed = nextseed;
+                return Number(nextseed >> (48n - BigInt(bits)));
+            }
+        
+            nextInt(n) {
+                let bits, val;
+                do {
+                    bits = this.next(31);
+                    val = bits % n;
+                } while(bits - val + (n-1) < 0);
+                return val;
+            }
+        }
+
+        function gencode(seed) {
+            seed = BigInt.asUintN(48, BigInt(seed) ^ multiplier);
+            function next(bits) {
+                const oldseed = seed;
+                const nextseed = BigInt.asUintN(48, oldseed * multiplier + addend);
+                seed = nextseed;
+                return Number(nextseed >> (48n - BigInt(bits)));
+            }
+        
+            let bits, val;
+            do {
+                bits = next(31);
+                val = bits % 999999;
+            } while(bits - val + (999999-1) < 0);
+            return val;
+        }
+
+        function getcode() {
+            document.getElementById('responsediv').style.display = "block";
+            document.getElementById('responsecode').innerHTML = gencode(document.getElementById('code').value);
+        }
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="content" role="main">
+        
+        <h1 class="title">Want to be powerful?</h1>
+        
+        <div class="color-form">
+            <p>
+              Get a code from your code!
+            </p>
+          <form class="color-search" onsubmit="prevent">
+              <label for="code">
+                  What's your code?<br>
+                <input id="code" name="code" required="required" type="text">
+              </label>
+            <button type="button" onclick="getcode();">Submit</button>
+          </form>
+        </div>
+        <div id="responsediv" style="display:none">
+        <p>
+            Your code is: <span id="responsecode"></span><br>
+        </p>
+       </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="links">
+        If you found this helpful, please think about <a href="https://buymeacoffee.com/eveningcoder" target="_blank">buying me a coffee ☕</a>!
+      </div>
+    </footer>
+  </body>
+</html>
