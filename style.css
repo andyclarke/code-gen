@@ -4,7 +4,7 @@
   --color-bg: #BDC9FF;
   --color-text-main: #000000;
   --color-primary: #AFECE0;
-  --wrapper-height: 87vh;
+  --wrapper-height: 70vh;
   --image-max-width: 300px;
   --image-margin: 3rem;
   --font-family: "HK Grotesk";
@@ -107,7 +107,7 @@ p {
   font-family: 'Merriweather Sans', sans-serif;
   font-style: normal;
   font-weight: bold;
-  font-size: 80px;
+  font-size: 5rem;
   line-height: 105%;
   margin: 2rem 0 0;
 }
